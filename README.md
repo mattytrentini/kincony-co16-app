@@ -127,6 +127,23 @@ curl http://BOARD_IP/api/v1/status
 curl http://BOARD_IP/api/v1/io
 ```
 
+## Verification
+
+The installed application was exercised on the CO16 with real TCP loopback
+HTTP requests: status and IO snapshots, all static assets, HEAD, read-only
+method rejection, missing routes, filesystem-path rejection, and a `503`
+caused by an actual failed I2C read. Relay readback remained `0xffff`; no
+relay-control writes were made.
+
+Desktop and 390-pixel-wide browser views were checked through a temporary USB
+forwarder to that same board HTTP server. Manual refresh, stale-data reporting
+on a failed request, and recovery were exercised. The forwarder was removed
+after verification; it is not an application dependency.
+
+The root `main.py` was then started by a normal MicroPython soft reboot and
+its startup messages observed without an exception. Ethernet reported
+disconnected with no IP, so external LAN access still requires a DHCP connection.
+
 ## Layout
 
 - `main.py`: MicroPython boot entry point and async server startup.
