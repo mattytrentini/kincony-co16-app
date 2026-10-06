@@ -12,7 +12,10 @@ async def main():
     board.start_network()
     app = create_app(board)
     print("KinCony CO16: Ethernet DHCP enabled; HTTP server listening on port 80.")
-    print("Web interface: /; REST API: /api/v1/status and /api/v1/io")
+    print(
+        "Web interface: /; REST API: /api/v1/status, /api/v1/io, "
+        "/api/v1/relays/{channel}, /api/v1/time"
+    )
     await app.start_server(host="0.0.0.0", port=80)
 
 

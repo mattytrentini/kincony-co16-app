@@ -15,5 +15,5 @@
     ["github:mattytrentini/st7789py_mpy", "d0fc6454d34cd3b3e90ac891fd63ccad8c3d10a0"],
     ["github:miguelgrinberg/microdot/src/microdot/microdot.py", "7742db9ff9f49635de3387145fafe56bf2377a97"]
   ],
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

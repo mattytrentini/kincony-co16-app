@@ -13,13 +13,14 @@
     <header class="page-header">
       <div>
         <p class="eyebrow">Board dashboard</p>
-        <h1>KinCony CO16 <span class="read-only">Read-only</span></h1>
-        <p class="subtitle">Live status and channel readback. This page does not change outputs.</p>
+        <h1>KinCony CO16</h1>
+        <p class="subtitle">Live board status, relay controls and on-board wall-clock.</p>
       </div>
       <button id="refresh-button" type="button">Refresh</button>
     </header>
 
     <p id="refresh-message" class="refresh-message" role="status" aria-live="polite">Connecting to the board…</p>
+    <p class="safety-note">Trusted LAN only: this unauthenticated page switches physical outputs. Check connected equipment before operating a relay.</p>
 
     <section id="status-panel" class="panel" data-state="waiting" aria-labelledby="status-heading">
       <div class="panel-heading">
@@ -39,6 +40,19 @@
       <p id="status-message" class="panel-message">No board status has been received.</p>
     </section>
 
+    <section id="clock-panel" class="panel" data-state="waiting" aria-labelledby="clock-heading">
+      <div class="panel-heading">
+        <h2 id="clock-heading">Board wall-clock</h2>
+        <span id="clock-freshness" class="freshness">Waiting for first read</span>
+      </div>
+      <div class="clock-reading">
+        <time id="clock-datetime" class="clock-datetime">Not read yet</time>
+        <span id="clock-validity" class="clock-validity" data-valid="unknown">Validity unknown</span>
+      </div>
+      <p class="clock-note">DS3231 hardware time · no timezone conversion or browser-time substitution.</p>
+      <p id="clock-message" class="panel-message">No board time has been received.</p>
+    </section>
+
     <section id="io-panel" class="panel" data-state="waiting" aria-labelledby="io-heading">
       <div class="panel-heading">
         <h2 id="io-heading">Channel states</h2>
@@ -48,21 +62,22 @@
       <div class="channel-section">
         <div class="channel-heading">
           <h3 id="relay-heading">Relays</h3>
-          <p>Hardware readback · on / off</p>
+          <p>Click to switch · confirmed on / off</p>
         </div>
         <ol id="relay-channels" class="channel-grid" aria-labelledby="relay-heading"></ol>
+        <p id="relay-message" class="relay-message" role="status" aria-live="polite">Controls unlock after a successful I/O read.</p>
       </div>
       <div class="channel-section">
         <div class="channel-heading">
           <h3 id="input-heading">Digital inputs</h3>
-          <p>Active / inactive</p>
+          <p>Display only · active / inactive</p>
         </div>
         <ol id="input-channels" class="channel-grid" aria-labelledby="input-heading"></ol>
       </div>
-      <p class="io-note">Channels are numbered 1–16. Relay states are readback, not a requested output setting.</p>
+      <p class="io-note">Channels are numbered 1–16. States come from hardware readback; controls pause while reading or writing I/O and when I/O is stale.</p>
     </section>
 
-    <footer>Refreshes every 5 seconds · Read-only HTTP interface</footer>
+    <footer>Refreshes every 5 seconds · Board time is shown only as received</footer>
   </main>
 </body>
 </html>
