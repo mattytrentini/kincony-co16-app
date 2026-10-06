@@ -10,43 +10,32 @@ leaving shared SPI2 peripherals untouched.
 
 ## Requirements
 
-- The `KINCONY_CO16` MicroPython board firmware, including `asyncio` and W5500
-  support. The [board definition](https://github.com/mattytrentini/micropython/tree/kincony-co16/ports/esp32/boards/KINCONY_CO16)
-  provides the pin and bus defaults.
+- Assumes the appropriate [KINCONY_CO16 MicroPython firmware](https://github.com/mattytrentini/micropython/tree/kincony-co16/ports/esp32/boards/KINCONY_CO16)
+  is already installed.
 - An Ethernet connection to a LAN with DHCP. HTTP listens on port **80**;
   no WiFi credentials or secrets are stored in this repository.
-- Docker for the installation commands below; no development tools need to be
-  installed on the host.
 
 This is an **unauthenticated, unencrypted, trusted-LAN interface**. Do not expose
 it directly to the Internet. There are no output-writing API routes.
 
 ## Install
 
-Clone this repository, enter its directory, and connect the board's USB serial
-port. In WSL, attach the shared USB device first and close any Windows program
-holding its serial port.
+Connect the board over USB, then install the application and all dependencies:
 
 ```sh
-docker run --rm --device /dev/ttyACM0 \
-  -v "$PWD":/app -w /app espressif/idf:v5.5.5 sh -c '
-    python -m pip install mpremote &&
-    mpremote connect /dev/ttyACM0 mip install --target /lib github:mattytrentini/kincony-co16-app &&
-    mpremote connect /dev/ttyACM0 fs cp main.py :main.py
-  '
+mpremote mip install github:mattytrentini/kincony-co16-app
 ```
 
-The manifest installs application modules, browser assets and all dependencies
-into `/lib`. **The separate copy of `main.py` to the filesystem root is required
-for automatic startup**: MicroPython does not boot a `main.py` placed in `/lib`.
-Review or back up an existing root `main.py` before replacing it.
-
-If `mpremote` is already available, the equivalent commands are:
+If needed, install `mpremote` with:
 
 ```sh
-mpremote connect /dev/ttyACM0 mip install --target /lib github:mattytrentini/kincony-co16-app
-mpremote connect /dev/ttyACM0 fs cp main.py :main.py
+uv tool install mpremote
 ```
+
+The manifest installs modules and browser assets into `/lib` and the boot entry
+point into `/main.py`. No clone, Docker container, or separate file copy is
+required. Installation replaces any existing `/main.py`; back it up first if
+you need to keep it.
 
 Reset the board after installation. `main.py` enables Ethernet DHCP and starts
 Microdot with `await app.start_server(host="0.0.0.0", port=80)`. The HTTP server
@@ -139,6 +128,10 @@ Desktop and 390-pixel-wide browser views were checked through a temporary USB
 forwarder to that same board HTTP server. Manual refresh, stale-data reporting
 on a failed request, and recovery were exercised. The forwarder was removed
 after verification; it is not an application dependency.
+
+Default-target mip installation was checked with `/main.py` absent: it created
+the root boot entry point and installed all dependencies without a separate
+file copy.
 
 The root `main.py` was then started by a normal MicroPython soft reboot and
 its startup messages observed without an exception. Ethernet reported

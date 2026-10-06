@@ -4,7 +4,8 @@
     ["co16_web.py", "github:mattytrentini/kincony-co16-app/co16_web.py"],
     ["co16_static/index.html", "github:mattytrentini/kincony-co16-app/co16_static/index.html"],
     ["co16_static/app.css", "github:mattytrentini/kincony-co16-app/co16_static/app.css"],
-    ["co16_static/app.js", "github:mattytrentini/kincony-co16-app/co16_static/app.js"]
+    ["co16_static/app.js", "github:mattytrentini/kincony-co16-app/co16_static/app.js"],
+    ["../main.py", "github:mattytrentini/kincony-co16-app/main.py"]
   ],
   "deps": [
     ["github:mcauser/micropython-pcf8575", "8d4c54e852e5dfd5f9f92ba5c2b95246e913d3b7"],
