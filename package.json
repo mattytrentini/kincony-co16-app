@@ -1,0 +1,18 @@
+{
+  "urls": [
+    ["co16.py", "github:mattytrentini/kincony-co16-app/co16.py"],
+    ["co16_web.py", "github:mattytrentini/kincony-co16-app/co16_web.py"],
+    ["co16_static/index.html", "github:mattytrentini/kincony-co16-app/co16_static/index.html"],
+    ["co16_static/app.css", "github:mattytrentini/kincony-co16-app/co16_static/app.css"],
+    ["co16_static/app.js", "github:mattytrentini/kincony-co16-app/co16_static/app.js"]
+  ],
+  "deps": [
+    ["github:mcauser/micropython-pcf8575", "8d4c54e852e5dfd5f9f92ba5c2b95246e913d3b7"],
+    ["github:mattytrentini/micropython-xl9535", "4d44bb450306c38270f09a53b75e5c1f414c08e9"],
+    ["github:robert-hh/ads1x15", "8981f67137cdb01044c080863c653a7d7e7c87f6"],
+    ["github:mattytrentini/micropython-DS3231-AT24C32", "44654c959fabd0f0bd27b4977ebd5dee29753516"],
+    ["github:mattytrentini/st7789py_mpy", "d0fc6454d34cd3b3e90ac891fd63ccad8c3d10a0"],
+    ["github:miguelgrinberg/microdot/src/microdot/microdot.py", "7742db9ff9f49635de3387145fafe56bf2377a97"]
+  ],
+  "version": "0.1.0"
+}

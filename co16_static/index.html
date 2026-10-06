@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>KinCony CO16</title>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <main class="dashboard">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Board dashboard</p>
+        <h1>KinCony CO16 <span class="read-only">Read-only</span></h1>
+        <p class="subtitle">Live status and channel readback. This page does not change outputs.</p>
+      </div>
+      <button id="refresh-button" type="button">Refresh</button>
+    </header>
+
+    <p id="refresh-message" class="refresh-message" role="status" aria-live="polite">Connecting to the board…</p>
+
+    <section id="status-panel" class="panel" data-state="waiting" aria-labelledby="status-heading">
+      <div class="panel-heading">
+        <h2 id="status-heading">Board status</h2>
+        <span id="status-freshness" class="freshness">Waiting for first read</span>
+      </div>
+      <dl class="board-details">
+        <div><dt>Board</dt><dd id="device-model">Not read yet</dd></div>
+        <div><dt>Firmware</dt><dd id="firmware">Not read yet</dd></div>
+        <div><dt>Network</dt><dd id="network-interface">Not read yet</dd></div>
+        <div><dt>Connection</dt><dd id="network-connection">Not read yet</dd></div>
+        <div><dt>IPv4 address</dt><dd id="ipv4">Not read yet</dd></div>
+        <div><dt>Free heap</dt><dd id="heap-free">Not read yet</dd></div>
+        <div><dt>Application</dt><dd id="app-name">Not read yet</dd></div>
+        <div><dt>App version</dt><dd id="app-version">Not read yet</dd></div>
+      </dl>
+      <p id="status-message" class="panel-message">No board status has been received.</p>
+    </section>
+
+    <section id="io-panel" class="panel" data-state="waiting" aria-labelledby="io-heading">
+      <div class="panel-heading">
+        <h2 id="io-heading">Channel states</h2>
+        <span id="io-freshness" class="freshness">Waiting for first read</span>
+      </div>
+      <p id="io-message" class="panel-message">No channel states have been received.</p>
+      <div class="channel-section">
+        <div class="channel-heading">
+          <h3 id="relay-heading">Relays</h3>
+          <p>Hardware readback · on / off</p>
+        </div>
+        <ol id="relay-channels" class="channel-grid" aria-labelledby="relay-heading"></ol>
+      </div>
+      <div class="channel-section">
+        <div class="channel-heading">
+          <h3 id="input-heading">Digital inputs</h3>
+          <p>Active / inactive</p>
+        </div>
+        <ol id="input-channels" class="channel-grid" aria-labelledby="input-heading"></ol>
+      </div>
+      <p class="io-note">Channels are numbered 1–16. Relay states are readback, not a requested output setting.</p>
+    </section>
+
+    <footer>Refreshes every 5 seconds · Read-only HTTP interface</footer>
+  </main>
+</body>
+</html>
