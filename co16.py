@@ -10,13 +10,13 @@ from ds3231 import DS3231
 from pcf8575 import PCF8575
 from xl9535 import XL9535
 
-VERSION = "0.2.0"
+VERSION = "0.4.0"
 
 
 class CO16:
     """CO16 relay controls, read-only inputs, RTC and Ethernet interface."""
 
-    def __init__(self):
+    def __init__(self, identity_provider=None):
         self.i2c = I2C(0, sda=Pin(8), scl=Pin(18), freq=100_000)
         self._relays = PCF8575(self.i2c, address=0x22)
         self._inputs = XL9535(self.i2c, address=0x24)
@@ -29,9 +29,10 @@ class CO16:
             int=Pin(43),
             reset=Pin(44),
         )
-        identity = os.uname()
+        self.identity = identity = os.uname() if identity_provider is None else identity_provider()
         self._model = identity.machine
         self._firmware = identity.version
+        self.lcd_state = "not_started"
 
     def start_network(self):
         """Enable Ethernet; the firmware obtains an address through DHCP."""

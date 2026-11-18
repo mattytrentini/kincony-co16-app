@@ -156,8 +156,11 @@ def create_app(board, static_dir=None):
         allow = "GET, HEAD"
         # Match the registered routes, not a broad writable URL prefix.
         for methods, pattern, _, _, _ in app.url_map:
-            if pattern.match(request.path) is not None and "POST" in methods:
-                allow = "GET, HEAD, POST"
+            if pattern.match(request.path) is not None:
+                allowed = set(methods)
+                if "GET" in allowed:
+                    allowed.add("HEAD")
+                allow = ", ".join(sorted(allowed))
                 break
         if _is_api_request(request):
             response = _api_error(
